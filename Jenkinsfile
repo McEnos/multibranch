@@ -17,12 +17,13 @@ pipeline{
                 }
             }
         }
-    }
-    stage("Unit tests"){
+         stage("Unit tests"){
         steps{
             echo "Running unit tests"
         }
     }
+    }
+   
     post{
         always{
             echo "========always========"
