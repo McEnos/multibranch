@@ -18,6 +18,11 @@ pipeline{
             }
         }
     }
+    stage("Unit tests"){
+        steps{
+            echo "Running unit tests"
+        }
+    }
     post{
         always{
             echo "========always========"
