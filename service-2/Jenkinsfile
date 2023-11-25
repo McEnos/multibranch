@@ -1,2 +1,3 @@
 @Library('multibranch-shared-library') _
-dynamicJobs()
+def pipelineDefinition = backendPipeline.getCiPipeline()
+pipelineDefinition.call()
