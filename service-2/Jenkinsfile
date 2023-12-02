@@ -1,3 +1,3 @@
 @Library('multibranch-shared-lib') _
-def pipelineDefinition = BackendPipeline.getCiPipeline()
+def pipelineDefinition = backendPipeline.getCiPipeline()
 pipelineDefinition.call()
