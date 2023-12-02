@@ -2,7 +2,7 @@
 pipeline {
     agent any
     stages {
-        stage("monorepo-job") {
+        stage("running monorepo-job") {
             steps {
                 script {
                     multiPipelines()
