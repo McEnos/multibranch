@@ -1,4 +1,4 @@
-@Library('multibranch-shared-library') _
+@Library(multibranch-shared-lib') _
 pipeline {
     agent any
     stages {
