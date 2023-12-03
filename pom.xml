@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.5</version>
+        <version>3.2.0</version>
         <relativePath/>
     </parent>
 
@@ -17,8 +17,8 @@
 
     <properties>
         <java.version>21</java.version>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <!--<maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
@@ -45,7 +45,11 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                   <!-- <image>
+                    <!--<image>
+                        <name>${project.artifactId}</name>
+                        <builder>paketobuildpacks/builder:base</builder>
+                    </image>-->
+                   <!-- <image> -DskipTests
                         <builder>paketobuildpacks/builder-jammy-base:latest</builder>
                     </image>-->
                     <excludes>
@@ -75,14 +79,14 @@
                         true
                     </allowInsecureRegistries>
                 </configuration>
-                <executions>
+              <!--  <executions>
                     <execution>
                         <phase>package</phase>
                         <goals>
                             <goal>dockerBuild</goal>
                         </goals>
                     </execution>
-                </executions>
+                </executions>-->
             </plugin>
         </plugins>
     </build>
