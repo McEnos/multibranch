@@ -55,10 +55,10 @@
                         <image>bellsoft/liberica-openjdk-alpine</image>
                     </from>
                     <to>
-                        <image>${project.artifactId}:latest</image>
+                        <image>localhost:8050/repository/turnkey/${project.artifactId}:latest</image>
                         <!--<auth>
                             <username>admin</username>
-                            <password>admin</password>
+                            <password>turnkey@2024</password>
                         </auth>-->
                     </to>
                     <allowInsecureRegistries>
