@@ -1,0 +1,31 @@
+version: '3.1'
+services:
+  watchtower:
+    image: containrrr/watchtower
+    environment:
+      WATCHTOWER_SCHEDULE: "0 * * * * *"
+      TZ: Africa/Nairobi
+      WATCHTOWER_CLEANUP: "true"
+      WATCHTOWER_DEBUG: "true"
+    networks:
+      - main
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  service-one:
+    image: localhost:8050/service-1:latest
+    ports:
+      - "8500:8500"
+    restart: on-failure
+    networks:
+      - main
+
+  service-two:
+    image: localhost:8050/service-2:latest
+    ports:
+      - "8600:8600"
+    networks:
+      - main
+
+networks:
+  main:
