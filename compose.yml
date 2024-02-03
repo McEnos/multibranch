@@ -7,13 +7,15 @@ services:
       TZ: Africa/Nairobi
       WATCHTOWER_CLEANUP: "true"
       WATCHTOWER_DEBUG: "true"
+      REPO_USER: "turnkey"
+      REPO_PASSWORD: "Turnkey@2024"
     networks:
       - main
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
   service-one:
-    image: localhost:8050/service-1:latest
+    image: localhost:8050/repository/turnkey/service-1:latest
     ports:
       - "8500:8500"
     restart: on-failure
@@ -21,11 +23,49 @@ services:
       - main
 
   service-two:
-    image: localhost:8050/service-2:latest
+    image: localhost:8050/repository/turnkey/service-2:latest
     ports:
       - "8600:8600"
     networks:
       - main
+  loki:
+    image: grafana/loki:main
+    command: [ "-config.file=/etc/loki/local-config.yaml" ]
+    ports:
+      - "3100:3100"
+    networks:
+      main:
+  prometheus:
+    image: prom/prometheus:v2.46.0
+    command:
+      - --enable-feature=exemplar-storage
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+    networks:
+      main:
+  tempo:
+    image: grafana/tempo:2.2.2
+    command: [ "-config.file=/etc/tempo.yaml" ]
+    volumes:
+      - ./docker/tempo/tempo.yml:/etc/tempo.yaml:ro
+      - ./docker/tempo/tempo-data:/tmp/tempo
+    ports:
+      - "3110:3100"  # Tempo
+      - "9411:9411" # zipkin
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - ./docker/grafana:/etc/grafana/provisioning/datasources:ro
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+    ports:
+      - "3000:3000"
+
 
 networks:
   main:
